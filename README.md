@@ -1,82 +1,96 @@
-# PruebaFAC - API .NET 8 con JWT
 
-Esta es una API desarrollada en ASP.NET Core 8 que permite gestionar clientes (Customers) y órdenes (Orders), utilizando Entity Framework Core con SQL Server y autenticación JWT.
+# PruebaFAC
 
-## Tecnologías utilizadas
+Esta es una prueba técnica realizada por el desarrollador **David Páramo** de la empresa **Softgic**.  
+Correo: **david.paramo@softgic.co**
 
-- .NET 8
+## Descripción del Proyecto
+
+PruebaFAC es una API REST construida con **ASP.NET Core 8**, que gestiona clientes (Customers), órdenes (Orders), productos (Products) y los ítems asociados a una orden (OrderItems). Se incluye autenticación basada en **JWT (JSON Web Tokens)**.
+
+## Tecnologías Usadas
+
+- ASP.NET Core 8
 - Entity Framework Core
 - SQL Server
-- Autenticación JWT (Json Web Token)
-- Swagger UI para documentación
-- C# 11
+- JWT Bearer Authentication
+- Swagger (OpenAPI)
 
-## Estructura de carpetas
+## Requisitos Previos
 
-- `Controllers`: Controladores de la API.
-- `Services`: Lógica de negocio y servicios de entidades.
-- `Entities`: Entidades del dominio (Customer, Order, etc.).
-- `Dto`: Objetos de transferencia de datos.
-- `Interfaces`: Interfaces de los servicios.
-- `Context`: Contexto de la base de datos.
-- `Utils`: Clases auxiliares (como generación de JWT).
+- [.NET SDK 8.0](https://dotnet.microsoft.com/download)
+- SQL Server
+- Visual Studio o VS Code
+- EF Core Tools (`dotnet tool install --global dotnet-ef`)
 
-## Pasos para correr el proyecto
+## Configuración Inicial
 
-1. **Clona el repositorio:**
-   ```bash
-   git clone https://github.com/dparamo/PruebaFAC.git
-   cd PruebaFAC
-   ```
+1. Clonar el repositorio:
 
-2. **Configura la base de datos:**
-   - Crea una base de datos SQL Server vacía.
-   - En `appsettings.json`, configura tu cadena de conexión:
-     ```json
-     "ConnectionStrings": {
-         "ConnectionStringSQLServer": "Server=localhost;Database=PruebaFACDb;Trusted_Connection=True;TrustServerCertificate=True;"
-     }
-     ```
+```bash
+git clone https://github.com/dparamo/PruebaFAC.git
+cd PruebaFAC
+```
 
-3. **Configura el JWT (opcional):**
-   En `appsettings.json`, puedes ajustar los valores JWT:
-   ```json
-   "JwtSettings": {
-     "SecretKey": "TuClaveSuperSecreta123!",
-     "Issuer": "PruebaFACApi",
-     "Audience": "PruebaFACClient"
-   }
-   ```
+2. Configurar la cadena de conexión en `appsettings.json`:
 
-4. **Ejecuta las migraciones (si usas EF Migrations):**
-   ```bash
-   dotnet ef database update
-   ```
+```json
+"ConnectionStrings": {
+  "ConnectionStringSQLServer": "Server=localhost;Database=PruebaFAC;Trusted_Connection=True;TrustServerCertificate=True;"
+},
+"JwtSettings": {
+  "SecretKey": "TU_CLAVE_SECRETA",
+  "Issuer": "PruebaFACAPI",
+  "Audience": "PruebaFACUsers",
+  "ExpirationMinutes": 60
+}
+```
 
-5. **Ejecuta el proyecto:**
-   ```bash
-   dotnet run
-   ```
+3. Crear la base de datos y aplicar migraciones:
 
-6. **Explora el Swagger:**
-   - Abre `https://localhost:7216/swagger/index.html` en tu navegador.
-   - Usa el botón "Authorize" para iniciar sesión con un token JWT.
+```bash
+dotnet ef database update
+```
 
-## Pruebas con JWT
+## Ejecutar el Proyecto
 
-1. Ve a `/api/v1/auth/login` con el siguiente payload:
-   ```json
-   {
-     "username": "admin",
-     "password": "1234"
-   }
-   ```
+```bash
+dotnet run
+```
 
-2. Copia el token recibido y haz clic en "Authorize" en Swagger.
+La API estará disponible en: https://localhost:7216
 
----
+## Endpoints Principales
 
-### Información del desarrollador
+### Autenticación
+- `POST /api/v1/auth/login` → Generar token JWT
 
-> **Esta es una prueba técnica realizada por el desarrollador David Guillenty Páramo Porras, colaborador de la empresa Softgic.**  
-> Para cualquier contacto o consulta técnica relacionada con este proyecto, puede comunicarse al correo: **david.paramo@softgic.co**.
+### Customers
+- `GET /api/v1/customers`
+- `POST /api/v1/customers`
+- `PUT /api/v1/customers/{id}`
+
+### Orders
+- `GET /api/v1/orders`
+- `POST /api/v1/orders`
+- `PUT /api/v1/orders/items/{orderId}`
+- `GET /api/v1/orders/search?status=&date=&customerId=`
+
+### Products
+- `GET /api/v1/products`
+- `POST /api/v1/products`
+
+## Autenticación JWT
+
+1. Ejecuta el login con un `POST /api/v1/auth/login`.
+2. Copia el token generado.
+3. Haz clic en "Authorize" en Swagger y pega el token en el formato:
+
+```
+Bearer {tu_token}
+```
+
+## Notas Finales
+
+- El modelo de datos ahora incluye una entidad `Product`, y `OrderItem` se relaciona con `Product`.
+- La búsqueda de órdenes permite filtrar por estado, cliente y fecha de creación.
