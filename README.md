@@ -60,25 +60,38 @@ dotnet run
 
 La API estará disponible en: https://localhost:7216
 
-## Endpoints Principales
+## Endpoints Disponibles
 
-### Autenticación
-- `POST /api/v1/auth/login` → Generar token JWT
+🔐 Auth
+Método	Endpoint	Descripción
+POST	/api/v1/auth/login	Autenticación de usuario y generación de token JWT.
 
-### Customers
-- `GET /api/v1/customers`
-- `POST /api/v1/customers`
-- `PUT /api/v1/customers/{id}`
+👤 Customer
+Método	Endpoint	Descripción
+GET	/api/v1/Customer	Obtener todos los clientes.
+GET	/api/v1/Customer/{id}	Obtener cliente por ID.
+POST	/api/v1/Customer	Crear nuevo cliente.
+PUT	/api/v1/Customer/{id}	Actualizar cliente.
+DELETE	/api/v1/Customer/{id}	Eliminar cliente.
 
-### Orders
-- `GET /api/v1/orders`
-- `POST /api/v1/orders`
-- `PUT /api/v1/orders/items/{orderId}`
-- `GET /api/v1/orders/search?status=&date=&customerId=`
+📦 Order
+Método	Endpoint	Descripción
+GET	/api/v1/orders	Obtener todas las órdenes.
+GET	/api/v1/orders/{id}	Obtener orden por ID.
+POST	/api/v1/orders	Crear nueva orden.
+PUT	/api/v1/orders/{orderId}/items	Actualizar ítems de una orden existente.
+DELETE	/api/v1/orders/{id}	Eliminar orden por ID.
+GET	/api/v1/orders/customer/{customerId}	Obtener órdenes por cliente.
+GET	/api/v1/orders/search	Buscar órdenes filtrando por estado, fecha o cliente.
 
-### Products
-- `GET /api/v1/products`
-- `POST /api/v1/products`
+🛒 Product
+Método	Endpoint	Descripción
+GET	/api/v1/products	Obtener todos los productos.
+GET	/api/v1/products/{id}	Obtener producto por ID.
+POST	/api/v1/products	Crear nuevo producto.
+PUT	/api/v1/products/{id}	Actualizar producto.
+DELETE	/api/v1/products/{id}	Eliminar producto por ID.
+
 
 ## Autenticación JWT
 
