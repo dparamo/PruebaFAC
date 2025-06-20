@@ -17,61 +17,54 @@ public class OrderService : IOrderService
 
     public async Task<OrderDto> GetByIdAsync(Guid id)
     {
-        OrderDto result = new();
+        var result = new OrderDto();
         try
         {
             var order = await _context.Orders
                 .Include(o => o.Items)
+                    .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
-            {
-                result.Error = true;
-                result.Message = "Orden no encontrada.";
-                return result;
-            }
+                return new OrderDto { Error = true, Message = "Orden no encontrada." };
 
-            result.Id = order.Id;
-            result.CustomerId = order.CustomerId;
-            result.Status = order.Status;
-            result.CreatedAt = order.CreatedAt;
-            result.Items = order.Items.Select(i => new OrderItemDto
+            result = new OrderDto
             {
-                ProductName = i.ProductName,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList();
-
-            result.Error = false;
-            result.Message = "Orden encontrada correctamente.";
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                Status = order.Status,
+                CreatedAt = order.CreatedAt,
+                Items = order.Items.Select(i => new OrderItemDto
+                {
+                    ProductName = i.Product?.Name ?? "Producto desconocido", 
+                    Quantity = i.Quantity,
+                    UnitPrice = i.Product?.UnitPrice ?? 0
+                }).ToList(),
+                Error = false,
+                Message = "Orden encontrada correctamente."
+            };
         }
         catch (Exception ex)
         {
-            result.Error = true;
-            result.Message = ex.Message;
+            result = new OrderDto { Error = true, Message = ex.Message };
         }
 
         return result;
     }
 
-    
-    
     public async Task<List<OrderDto>> GetAllAsync()
     {
-        List<OrderDto> result = new();
+        var result = new List<OrderDto>();
         try
         {
             var orders = await _context.Orders
                 .Include(o => o.Items)
+                    .ThenInclude(i => i.Product)
                 .ToListAsync();
 
-            if (orders == null || !orders.Any())
+            if (!orders.Any())
             {
-                result.Add(new OrderDto
-                {
-                    Error = true,
-                    Message = "No hay órdenes registradas."
-                });
+                result.Add(new OrderDto { Error = true, Message = "No hay órdenes registradas." });
                 return result;
             }
 
@@ -83,9 +76,9 @@ public class OrderService : IOrderService
                 CreatedAt = order.CreatedAt,
                 Items = order.Items.Select(i => new OrderItemDto
                 {
-                    ProductName = i.ProductName,
+                    ProductName = i.Product?.Name ?? "Producto desconocido", 
                     Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
+                    UnitPrice = i.Product?.UnitPrice ?? 0 
                 }).ToList(),
                 Error = false,
                 Message = "Orden cargada correctamente."
@@ -93,14 +86,7 @@ public class OrderService : IOrderService
         }
         catch (Exception ex)
         {
-            result = new List<OrderDto>
-        {
-            new OrderDto
-            {
-                Error = true,
-                Message = ex.Message
-            }
-        };
+            result.Add(new OrderDto { Error = true, Message = ex.Message });
         }
 
         return result;
@@ -108,50 +94,62 @@ public class OrderService : IOrderService
 
     public async Task<OrderDto> CreateAsync(CreateOrderDto dto)
     {
-        OrderDto result = new();
+        var result = new OrderDto();
         try
         {
+            var orderItems = new List<OrderItem>();
+
+            foreach (var item in dto.Items)
+            {
+                var product = await _context.Products.FindAsync(item.ProductId);
+                if (product == null)
+                    return new OrderDto { Error = true, Message = $"Producto con ID {item.ProductId} no encontrado." };
+
+                orderItems.Add(new OrderItem
+                {
+                    ProductId = product.Id,
+                    Quantity = item.Quantity
+                });
+            }
+
             var order = new Order
             {
                 CustomerId = dto.CustomerId,
-                CreatedAt = DateTime.UtcNow,
                 Status = dto.Status,
-                Items = dto.Items.Select(i => new OrderItem
-                {
-                    ProductName = i.ProductName,
-                    Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
-                }).ToList()
+                CreatedAt = DateTime.UtcNow,
+                Items = orderItems
             };
 
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            result.Id = order.Id;
-            result.CustomerId = order.CustomerId;
-            result.Status = order.Status;
-            result.CreatedAt = order.CreatedAt;
-            result.Items = dto.Items.Select(i => new OrderItemDto
+            result = new OrderDto
             {
-                ProductName = i.ProductName,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList(); 
-            result.Error = false;
-            result.Message = "Orden creada correctamente.";
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                Status = order.Status,
+                CreatedAt = order.CreatedAt,
+                Items = orderItems.Select(i => new OrderItemDto
+                {
+                    ProductName = i.Product?.Name ?? "Producto desconocido", 
+                    Quantity = i.Quantity,
+                    UnitPrice = i.Product?.UnitPrice ?? 0 
+                }).ToList(),
+                Error = false,
+                Message = "Orden creada correctamente."
+            };
         }
         catch (Exception ex)
         {
-            result.Error = true;
-            result.Message = ex.Message;
+            result = new OrderDto { Error = true, Message = ex.Message };
         }
+
         return result;
     }
 
-
     public async Task<OrderDto> UpdateItemsAsync(Guid orderId, List<CreateItemDto> itemsDto)
     {
-        OrderDto result = new();
+        var result = new OrderDto();
         try
         {
             var order = await _context.Orders
@@ -159,53 +157,41 @@ public class OrderService : IOrderService
                 .FirstOrDefaultAsync(o => o.Id == orderId);
 
             if (order == null)
-            {
-                result.Error = true;
-                result.Message = "Orden no encontrada.";
-                return result;
-            }
+                return new OrderDto { Error = true, Message = "Orden no encontrada." };
 
-            // Borrar items antiguos
             _context.OrderItems.RemoveRange(order.Items);
 
-            // Agregar nuevos items
-            var newItems = itemsDto.Select(i => new OrderItem
+            var newItems = new List<OrderItem>();
+            foreach (var dto in itemsDto)
             {
-                OrderId = order.Id,
-                ProductName = i.ProductName,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList();
+                var product = await _context.Products.FindAsync(dto.ProductId);
+                if (product == null)
+                    return new OrderDto { Error = true, Message = $"Producto con ID {dto.ProductId} no encontrado." };
+
+                newItems.Add(new OrderItem
+                {
+                    OrderId = order.Id,
+                    ProductId = product.Id,
+                    Quantity = dto.Quantity
+                });
+            }
 
             _context.OrderItems.AddRange(newItems);
-
             await _context.SaveChangesAsync();
 
-            result.Id = order.Id;
-            result.CustomerId = order.CustomerId;
-            result.Status = order.Status;
-            result.CreatedAt = order.CreatedAt;
-            result.Items = newItems.Select(i => new OrderItemDto
-            {
-                ProductName = i.ProductName,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList();
-            result.Error = false;
-            result.Message = "Items actualizados correctamente.";
+            result = await GetByIdAsync(order.Id);
         }
         catch (Exception ex)
         {
-            result.Error = true;
-            result.Message = ex.Message;
+            result = new OrderDto { Error = true, Message = ex.Message };
         }
+
         return result;
     }
 
-
     public async Task<OrderDto> DeleteAsync(Guid id)
     {
-        OrderDto result = new();
+        var result = new OrderDto();
         try
         {
             var order = await _context.Orders
@@ -213,54 +199,36 @@ public class OrderService : IOrderService
                 .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
-            {
-                result.Error = true;
-                result.Message = "Orden no encontrada.";
-                return result;
-            }
+                return new OrderDto { Error = true, Message = "Orden no encontrada." };
 
             _context.OrderItems.RemoveRange(order.Items);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
 
-            result.Id = order.Id;
-            result.CustomerId = order.CustomerId;
-            result.Status = order.Status;
-            result.CreatedAt = order.CreatedAt;
-            result.Items = order.Items.Select(i => new OrderItemDto
-            {
-                ProductName = i.ProductName,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList();
-            result.Error = false;
-            result.Message = "Orden eliminada correctamente.";
+            result = new OrderDto { Id = id, Error = false, Message = "Orden eliminada correctamente." };
         }
         catch (Exception ex)
         {
-            result.Error = true;
-            result.Message = ex.Message;
+            result = new OrderDto { Error = true, Message = ex.Message };
         }
+
         return result;
     }
 
     public async Task<List<OrderDto>> GetByCustomerIdAsync(Guid customerId)
     {
-        List<OrderDto> result = new();
+        var result = new List<OrderDto>();
         try
         {
             var orders = await _context.Orders
                 .Include(o => o.Items)
+                    .ThenInclude(i => i.Product)
                 .Where(o => o.CustomerId == customerId)
                 .ToListAsync();
 
             if (!orders.Any())
             {
-                result.Add(new OrderDto
-                {
-                    Error = true,
-                    Message = "El cliente no tiene órdenes registradas."
-                });
+                result.Add(new OrderDto { Error = true, Message = "El cliente no tiene órdenes registradas." });
                 return result;
             }
 
@@ -272,9 +240,9 @@ public class OrderService : IOrderService
                 CreatedAt = order.CreatedAt,
                 Items = order.Items.Select(i => new OrderItemDto
                 {
-                    ProductName = i.ProductName,
+                    ProductName = i.Product?.Name ?? "Producto desconocido", // Fix for CS8602  
                     Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
+                    UnitPrice = i.Product?.UnitPrice ?? 0 // Fix for CS8602  
                 }).ToList(),
                 Error = false,
                 Message = "Orden cargada correctamente."
@@ -282,28 +250,21 @@ public class OrderService : IOrderService
         }
         catch (Exception ex)
         {
-            result = new List<OrderDto>
-        {
-            new OrderDto
-            {
-                Error = true,
-                Message = ex.Message
-            }
-        };
+            result.Add(new OrderDto { Error = true, Message = ex.Message });
         }
 
         return result;
     }
 
-
     public async Task<List<OrderDto>> SearchAsync(string? status, DateTime? date, Guid? customerId)
     {
-        List<OrderDto> result = new();
+        var result = new List<OrderDto>();
 
         try
         {
             var query = _context.Orders
                 .Include(o => o.Items)
+                    .ThenInclude(i => i.Product)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(status))
@@ -323,11 +284,7 @@ public class OrderService : IOrderService
 
             if (!orders.Any())
             {
-                result.Add(new OrderDto
-                {
-                    Error = true,
-                    Message = "No se encontraron órdenes con los filtros proporcionados."
-                });
+                result.Add(new OrderDto { Error = true, Message = "No se encontraron órdenes con los filtros proporcionados." });
                 return result;
             }
 
@@ -339,9 +296,9 @@ public class OrderService : IOrderService
                 CreatedAt = order.CreatedAt,
                 Items = order.Items.Select(i => new OrderItemDto
                 {
-                    ProductName = i.ProductName,
+                    ProductName = i.Product?.Name ?? "Producto desconocido", // Fix for CS8602  
                     Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
+                    UnitPrice = i.Product?.UnitPrice ?? 0 // Fix for CS8602  
                 }).ToList(),
                 Error = false,
                 Message = "Orden cargada correctamente."
@@ -349,15 +306,9 @@ public class OrderService : IOrderService
         }
         catch (Exception ex)
         {
-            result.Add(new OrderDto
-            {
-                Error = true,
-                Message = ex.Message
-            });
+            result.Add(new OrderDto { Error = true, Message = ex.Message });
         }
 
         return result;
     }
-
-
 }

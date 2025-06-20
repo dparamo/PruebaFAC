@@ -38,9 +38,13 @@ public class CustomerController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<CustomerDto>> Create([FromBody] CreateCustomerDto dto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState); 
+
         var result = await _service.CreateAsync(dto);
         if (result.Error)
             return BadRequest(result);
+
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 

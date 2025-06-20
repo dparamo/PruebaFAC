@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "D:\\Estudio\\PruebaFAC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\dto\\createcustomerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\dto\\createcustomerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\dto\\customerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\dto\\customerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\dto\\createproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\dto\\createproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|d:\\estudio\\pruebafac\\pruebafac\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB0FCC13-DB9B-4554-BBE7-A3F0906F74E1}|PruebaFAC\\PruebaFAC.csproj|solutionrelative:pruebafac\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,46 +41,99 @@
           "SelectedChildIndex": 2,
           "Children": [
             {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "PruebaFAC\\Entities\\Product.cs",
+              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Entities\\Product.cs",
+              "RelativeToolTip": "PruebaFAC\\Entities\\Product.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T12:33:15.803Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "PruebaFAC\\Controllers\\OrderController.cs",
-              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Controllers\\OrderController.cs",
-              "RelativeToolTip": "PruebaFAC\\Controllers\\OrderController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T02:50:28.98Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Program.cs",
-              "RelativeDocumentMoniker": "PruebaFAC\\Program.cs",
-              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Program.cs",
-              "RelativeToolTip": "PruebaFAC\\Program.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAowFkAAAAAAAAAAAAAAA==",
+              "Title": "CreateCustomerDto.cs",
+              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Dto\\CreateCustomerDto.cs",
+              "RelativeDocumentMoniker": "PruebaFAC\\Dto\\CreateCustomerDto.cs",
+              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Dto\\CreateCustomerDto.cs",
+              "RelativeToolTip": "PruebaFAC\\Dto\\CreateCustomerDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T02:48:58.908Z",
+              "WhenOpened": "2025-06-20T14:04:27.048Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "CustomerDto.cs",
+              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Dto\\CustomerDto.cs",
+              "RelativeDocumentMoniker": "PruebaFAC\\Dto\\CustomerDto.cs",
+              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Dto\\CustomerDto.cs",
+              "RelativeToolTip": "PruebaFAC\\Dto\\CustomerDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T13:59:10.338Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "CustomerController.cs",
               "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Controllers\\CustomerController.cs",
               "RelativeDocumentMoniker": "PruebaFAC\\Controllers\\CustomerController.cs",
               "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Controllers\\CustomerController.cs",
               "RelativeToolTip": "PruebaFAC\\Controllers\\CustomerController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowDQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T02:43:19.311Z",
+              "WhenOpened": "2025-06-20T13:58:49.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Services\\OrderService.cs",
+              "RelativeDocumentMoniker": "PruebaFAC\\Services\\OrderService.cs",
+              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Services\\OrderService.cs",
+              "RelativeToolTip": "PruebaFAC\\Services\\OrderService.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T13:46:29.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CreateProductDto.cs",
+              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Dto\\CreateProductDto.cs",
+              "RelativeDocumentMoniker": "PruebaFAC\\Dto\\CreateProductDto.cs",
+              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Dto\\CreateProductDto.cs",
+              "RelativeToolTip": "PruebaFAC\\Dto\\CreateProductDto.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T13:19:38.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Program.cs",
+              "RelativeDocumentMoniker": "PruebaFAC\\Program.cs",
+              "ToolTip": "D:\\Estudio\\PruebaFAC\\PruebaFAC\\Program.cs",
+              "RelativeToolTip": "PruebaFAC\\Program.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T13:14:49.367Z",
               "EditorCaption": ""
             }
           ]
