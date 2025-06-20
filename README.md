@@ -1,96 +1,99 @@
+# 📦 PruebaFAC - Sistema de Pedidos con Autenticación JWT
 
-# PruebaFAC
+Este proyecto fue desarrollado como parte de una prueba técnica por el desarrollador **David Paramo** de la empresa **Softgic**.
+Contacto: david.paramo@softgic.co
 
-Esta es una prueba técnica realizada por el desarrollador **David Páramo** de la empresa **Softgic**.  
-Correo: **david.paramo@softgic.co**
+---
 
-## Descripción del Proyecto
-
-PruebaFAC es una API REST construida con **ASP.NET Core 8**, que gestiona clientes (Customers), órdenes (Orders), productos (Products) y los ítems asociados a una orden (OrderItems). Se incluye autenticación basada en **JWT (JSON Web Tokens)**.
-
-## Tecnologías Usadas
+## 🚀 Tecnologías Usadas
 
 - ASP.NET Core 8
 - Entity Framework Core
+- JWT (JSON Web Tokens)
+- Swagger (documentación)
 - SQL Server
-- JWT Bearer Authentication
-- Swagger (OpenAPI)
 
-## Requisitos Previos
+---
 
-- [.NET SDK 8.0](https://dotnet.microsoft.com/download)
-- SQL Server
-- Visual Studio o VS Code
-- EF Core Tools (`dotnet tool install --global dotnet-ef`)
-
-## Configuración Inicial
+## ⚙️ Configuración inicial
 
 1. Clonar el repositorio:
-
-```bash
+```
 git clone https://github.com/dparamo/PruebaFAC.git
-cd PruebaFAC
 ```
 
-2. Configurar la cadena de conexión en `appsettings.json`:
+2. Abrir la solución en Visual Studio 2022 o superior.
 
-```json
-"ConnectionStrings": {
-  "ConnectionStringSQLServer": "Server=localhost;Database=PruebaFAC;Trusted_Connection=True;TrustServerCertificate=True;"
-},
-"JwtSettings": {
-  "SecretKey": "TU_CLAVE_SECRETA",
-  "Issuer": "PruebaFACAPI",
-  "Audience": "PruebaFACUsers",
-  "ExpirationMinutes": 60
-}
+3. Crear la base de datos con las migraciones:
 ```
-
-3. Crear la base de datos y aplicar migraciones:
-
-```bash
 dotnet ef database update
 ```
 
-## Ejecutar el Proyecto
-
-```bash
-dotnet run
+4. Revisar el archivo `appsettings.json` y configurar tu cadena de conexión a SQL Server:
+```json
+"ConnectionStrings": {
+  "ConnectionStringSQLServer": "Server=.;Database=PruebaFAC;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
 ```
 
-La API estará disponible en: https://localhost:7216
+5. Correr la aplicación (`Ctrl + F5` o `dotnet run`).
 
-## Endpoints Principales
-
-### Autenticación
-- `POST /api/v1/auth/login` → Generar token JWT
-
-### Customers
-- `GET /api/v1/customers`
-- `POST /api/v1/customers`
-- `PUT /api/v1/customers/{id}`
-
-### Orders
-- `GET /api/v1/orders`
-- `POST /api/v1/orders`
-- `PUT /api/v1/orders/items/{orderId}`
-- `GET /api/v1/orders/search?status=&date=&customerId=`
-
-### Products
-- `GET /api/v1/products`
-- `POST /api/v1/products`
-
-## Autenticación JWT
-
-1. Ejecuta el login con un `POST /api/v1/auth/login`.
-2. Copia el token generado.
-3. Haz clic en "Authorize" en Swagger y pega el token en el formato:
-
+6. Accede a Swagger UI en:
 ```
-Bearer {tu_token}
+https://localhost:{puerto}/swagger
 ```
 
-## Notas Finales
+---
 
-- El modelo de datos ahora incluye una entidad `Product`, y `OrderItem` se relaciona con `Product`.
-- La búsqueda de órdenes permite filtrar por estado, cliente y fecha de creación.
+## 🔐 Autenticación JWT
+
+- En el login `/api/v1/auth/login`, puedes autenticarte con un usuario registrado y obtener un token JWT.
+- Usa el botón **Authorize 🔒** en Swagger para ingresar el token y acceder a los endpoints protegidos.
+
+---
+
+## 📌 Endpoints disponibles
+
+### 🔐 Auth
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST   | `/api/v1/auth/login` | Autenticación de usuario y generación de token JWT. |
+
+### 👤 Customer
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET    | `/api/v1/Customer`        | Obtener todos los clientes. |
+| GET    | `/api/v1/Customer/{id}`   | Obtener cliente por ID. |
+| POST   | `/api/v1/Customer`        | Crear nuevo cliente. |
+| PUT    | `/api/v1/Customer/{id}`   | Actualizar cliente. |
+| DELETE | `/api/v1/Customer/{id}`   | Eliminar cliente. |
+
+### 📦 Order
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET    | `/api/v1/orders`                            | Obtener todas las órdenes. |
+| GET    | `/api/v1/orders/{id}`                       | Obtener orden por ID. |
+| POST   | `/api/v1/orders`                            | Crear nueva orden. |
+| PUT    | `/api/v1/orders/{orderId}/items`            | Actualizar ítems de una orden existente. |
+| DELETE | `/api/v1/orders/{id}`                       | Eliminar orden por ID. |
+| GET    | `/api/v1/orders/customer/{customerId}`      | Obtener órdenes por cliente. |
+| GET    | `/api/v1/orders/search`                     | Buscar órdenes filtrando por estado, fecha o cliente. |
+
+### 🛒 Product
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET    | `/api/v1/products`            | Obtener todos los productos. |
+| GET    | `/api/v1/products/{id}`       | Obtener producto por ID. |
+| POST   | `/api/v1/products`            | Crear nuevo producto. |
+| PUT    | `/api/v1/products/{id}`       | Actualizar producto. |
+| DELETE | `/api/v1/products/{id}`       | Eliminar producto por ID. |
+
+## 📝 Notas
+
+- Los productos se gestionan por separado y pueden ser vinculados a órdenes como ítems.
+- El sistema maneja relaciones entre entidades como Customer → Order → OrderItems → Product.
+- Se valida formato de email, presencia de campos obligatorios, y manejo de errores.
+
+---
+
+Desarrollado con ❤️ por David Paramo - Softgic.
