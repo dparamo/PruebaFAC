@@ -88,18 +88,6 @@ https://localhost:{puerto}/swagger
 | PUT    | `/api/v1/products/{id}`       | Actualizar producto. |
 | DELETE | `/api/v1/products/{id}`       | Eliminar producto por ID. |
 
----
-
-## 🧪 Usuarios de prueba
-
-Puedes iniciar sesión con:
-- Usuario: `admin`
-- Contraseña: `1234`
-
-(O utilizar usuarios registrados en la tabla `Customer`).
-
----
-
 ## 📝 Notas
 
 - Los productos se gestionan por separado y pueden ser vinculados a órdenes como ítems.
