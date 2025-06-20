@@ -23,7 +23,7 @@ namespace PruebaFAC.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Username == dto.Username);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Email == dto.Password);
 
             if (customer == null)
                 return Unauthorized("Usuario no encontrado.");
@@ -33,12 +33,12 @@ namespace PruebaFAC.Controllers
             if (!passwordValid)
                 return Unauthorized("Contraseña incorrecta.");
 
-            var token = _jwtService.GenerateToken(customer.Username, customer.Id);
+            var token = _jwtService.GenerateToken(customer.Email, customer.Id);
 
             return Ok(new
             {
                 Token = token,
-                Username = customer.Username,
+                Email = customer.Email,
                 CustomerId = customer.Id
             });
         }
