@@ -89,8 +89,3 @@ La API estará disponible en: https://localhost:7216
 ```
 Bearer {tu_token}
 ```
-
-## Notas Finales
-
-- El modelo de datos ahora incluye una entidad `Product`, y `OrderItem` se relaciona con `Product`.
-- La búsqueda de órdenes permite filtrar por estado, cliente y fecha de creación.
