@@ -94,6 +94,3 @@ https://localhost:{puerto}/swagger
 - El sistema maneja relaciones entre entidades como Customer → Order → OrderItems → Product.
 - Se valida formato de email, presencia de campos obligatorios, y manejo de errores.
 
----
-
-Desarrollado con ❤️ por David Paramo - Softgic.
